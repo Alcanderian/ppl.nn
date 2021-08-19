@@ -15,15 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-#include "ppl/nn/runtime/runtime_options.h"
-#include "pybind11/pybind11.h"
+#ifndef _ST_HPC_PPL_NN_ENGINES_X86OPTIMIZER_OPS_MMCV_MMCV_MODULATED_DEFORM_CONV2D_OP_H_
+#define _ST_HPC_PPL_NN_ENGINES_X86OPTIMIZER_OPS_MMCV_MMCV_MODULATED_DEFORM_CONV2D_OP_H_
 
-namespace ppl { namespace nn { namespace python {
+#include "ppl/nn/params/mmcv/mmcv_modulated_deform_conv2d_param.h"
+#include "ppl/nn/engines/x86/optimizer/opt_kernel.h"
 
-void RegisterRuntimeOptions(pybind11::module* m) {
-    pybind11::class_<RuntimeOptions>(*m, "RuntimeOptions")
-        .def(pybind11::init<>())
-        .def_readwrite("mm_policy", &RuntimeOptions::mm_policy);
-}
+namespace ppl { namespace nn { namespace x86 {
 
-}}} // namespace ppl::nn::python
+class MMCVModulatedDeformConv2dOp final : public X86OptKernel {
+public:
+    MMCVModulatedDeformConv2dOp(const ir::Node* node) : X86OptKernel(node) {}
+    ppl::common::RetCode Init(const OptKernelOptions& options) override;
+    KernelImpl* CreateKernelImpl() const override;
+
+private:
+    std::shared_ptr<ppl::nn::common::MMCVModulatedDeformConv2dParam> param_;
+};
+
+}}} // namespace ppl::nn::x86
+
+#endif

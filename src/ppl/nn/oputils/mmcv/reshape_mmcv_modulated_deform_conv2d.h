@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-#ifndef _ST_HPC_PPL_NN_RUNTIME_POLICY_DEFS_H_
-#define _ST_HPC_PPL_NN_RUNTIME_POLICY_DEFS_H_
+#ifndef _ST_HPC_PPL_NN_OPUTILS_MMCV_RESHAPE_MMCV_MODULATED_DEFORM_CONV2D_H_
+#define _ST_HPC_PPL_NN_OPUTILS_MMCV_RESHAPE_MMCV_MODULATED_DEFORM_CONV2D_H_
 
-namespace ppl { namespace nn {
+#include "ppl/common/retcode.h"
+#include "ppl/nn/params/mmcv/mmcv_modulated_deform_conv2d_param.h"
+#include "ppl/nn/common/input_output_info.h"
 
-enum MemoryManagementPolicy {
-    /** better performance policy, will use more memory */
-    MM_BETTER_PERFORMANCE = 0,
+namespace ppl { namespace nn { namespace oputils {
 
-    /** less memory policy, may cause performance loss */
-    MM_LESS_MEMORY = 1,
-};
+ppl::common::RetCode ReshapeMMCVModulatedDeformConv2d(InputOutputInfo*, const void*);
 
-}} // namespace ppl::nn
+}}} // namespace ppl::nn::oputils
 
 #endif
